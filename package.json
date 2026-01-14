@@ -4,7 +4,10 @@
   "description": "Professional cross-platform media player and processor powered by LibVLC and FFmpeg",
   "main": "src/main/main.js",
   "homepage": "./",
-  "author": "OpenFrame Team",
+  "author": {
+    "name": "OpenFrame Team",
+    "email": "pmeet464@gmail.com"
+  },
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -137,7 +140,7 @@
       "category": "public.app-category.video",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "entitlements": "entitlements.mac.plist",
+      "entitlements": "build/entitlements.mac.plist",
       "extendInfo": {
         "NSDocumentsFolderUsageDescription": "OpenFrame uses the Documents folder to access media files",
         "NSDownloadsFolderUsageDescription": "OpenFrame uses the Downloads folder to access media files"
