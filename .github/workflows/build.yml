@@ -34,10 +34,20 @@ jobs:
       env:
         NODE_ENV: production
 
+    - name: Update main entry for packaging
+      run: |
+        # Temporarily update main entry point for packaging
+        npm pkg set main="build/main.js"
+
     - name: Package application
       run: npm run package
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Restore main entry point
+      run: |
+        # Restore original main entry point
+        npm pkg set main="src/main/main.js"
         
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
