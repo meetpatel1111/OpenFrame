@@ -92,13 +92,8 @@
         {
           "target": "portable",
           "arch": ["x64", "ia32"]
-        },
-        {
-          "target": "msi",
-          "arch": ["x64", "ia32"]
         }
       ],
-      "icon": "assets/icon.ico",
       "requestedExecutionLevel": "asInvoker",
       "publisherName": "OpenFrame",
       "verifyUpdateCodeSignature": false,
@@ -109,9 +104,6 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "allowElevation": true,
-      "installerIcon": "assets/icon.ico",
-      "uninstallerIcon": "assets/icon.ico",
-      "installerHeaderIcon": "assets/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "OpenFrame",
@@ -136,7 +128,6 @@
           "arch": ["x64", "arm64"]
         }
       ],
-      "icon": "assets/icon.icns",
       "category": "public.app-category.video",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -165,7 +156,6 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "assets/icon.png",
       "category": "AudioVideo",
       "desktop": {
         "Name": "OpenFrame",
