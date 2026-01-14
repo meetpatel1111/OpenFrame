@@ -60,13 +60,26 @@ class VLCManager extends EventEmitter {
     switch (platform) {
       case 'win32':
         libName = 'libvlc.dll';
-        const vlcPaths = [
-          'C:\\Program Files\\VideoLAN\\VLC',
-          'C:\\Program Files (x86)\\VideoLAN\\VLC',
-          path.join(process.env.PROGRAMFILES || 'C:\\Program Files', 'VideoLAN\\VLC'),
-          path.join(process.env['PROGRAMFILES(X86)'] || 'C:\\Program Files (x86)', 'VideoLAN\\VLC')
-        ];
-        libPath = vlcPaths.find(p => fs.existsSync(path.join(p, libName)));
+        // Use the exact VLC installation path
+        libPath = 'C:\\Program Files\\VideoLAN\\VLC';
+        
+        // Verify the exact path exists
+        const fullPath = path.join(libPath, libName);
+        if (!fs.existsSync(fullPath)) {
+          // Fallback to checking other common locations
+          const fallbackPaths = [
+            'C:\\Program Files (x86)\\VideoLAN\\VLC',
+            path.join(process.env.PROGRAMFILES || 'C:\\Program Files', 'VideoLAN\\VLC'),
+            path.join(process.env['PROGRAMFILES(X86)'] || 'C:\\Program Files (x86)', 'VideoLAN\\VLC')
+          ];
+          
+          for (const fallbackPath of fallbackPaths) {
+            if (fs.existsSync(path.join(fallbackPath, libName))) {
+              libPath = fallbackPath;
+              break;
+            }
+          }
+        }
         break;
         
       case 'darwin':
