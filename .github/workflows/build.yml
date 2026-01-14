@@ -27,12 +27,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        if (!(Test-Path package-lock.json)) {
-          Write-Host "package-lock.json not found, generating..."
+        if [ ! -f package-lock.json ]; then
+          echo "package-lock.json not found, generating..."
           npm install --package-lock-only
-        }
+        fi
         npm ci
-      shell: powershell
+      shell: bash
       
     - name: Build application
       run: npm run build
