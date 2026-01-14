@@ -38,7 +38,6 @@
     "moment": "^2.29.4",
     "electron-store": "^8.1.0",
     "electron-updater": "^6.0.0",
-    "node-vlc": "^0.3.0",
     "fluent-ffmpeg": "^2.1.2"
   },
   "devDependencies": {
