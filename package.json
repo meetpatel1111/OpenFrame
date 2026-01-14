@@ -117,12 +117,10 @@
     "msi": {
       "oneClick": false,
       "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "OpenFrame",
-      "menuCategory": "OpenFrame",
-      "installerIcon": "assets/icon.ico"
+      "menuCategory": "OpenFrame"
     },
     "mac": {
       "target": [
@@ -139,9 +137,7 @@
       "category": "public.app-category.video",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "entitlements": [
-        "com.apple.security.cs.allow-jit"
-      ],
+      "entitlements": "entitlements.mac.plist",
       "extendInfo": {
         "NSDocumentsFolderUsageDescription": "OpenFrame uses the Documents folder to access media files",
         "NSDownloadsFolderUsageDescription": "OpenFrame uses the Downloads folder to access media files"
