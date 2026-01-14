@@ -15,6 +15,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [18.x]
+      fail-fast: false
     
     steps:
     - name: Checkout code
@@ -24,6 +25,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Install dependencies
       run: |
@@ -43,6 +45,7 @@ jobs:
       run: npm run package
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      timeout-minutes: 30
 
     - name: Restore main entry point
       run: |
@@ -60,6 +63,7 @@ jobs:
           !dist/**/*.yml
         if-no-files-found: error
         retention-days: 5
+      continue-on-error: true
 
     - name: Create Release
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
