@@ -21,6 +21,10 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.node$/,
+        use: 'node-loader'
       }
     ]
   },
@@ -30,6 +34,7 @@ module.exports = {
   },
   externals: {
     'node-vlc': 'commonjs node-vlc',
-    'fluent-ffmpeg': 'commonjs fluent-ffmpeg'
+    'fluent-ffmpeg': 'commonjs fluent-ffmpeg',
+    'koffi': 'commonjs koffi'
   }
 };
