@@ -27,12 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        if [ ! -f package-lock.json ]; then
-          echo "package-lock.json not found, generating..."
-          npm install --package-lock-only
-        fi
-        npm ci
-      shell: bash
+        npm install
       
     - name: Build application
       run: npm run build
