@@ -41,9 +41,7 @@
     "electron-store": "^8.1.0",
     "electron-updater": "^6.0.0",
     "fluent-ffmpeg": "^2.1.2",
-    "node-ffi-napi": "^4.0.3",
-    "ref-napi": "^3.0.3",
-    "ref-struct-napi": "^1.1.1"
+    "koffi": "^2.5.0"
   },
   "devDependencies": {
     "electron": "^28.0.0",
