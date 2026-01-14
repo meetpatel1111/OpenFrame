@@ -33,7 +33,6 @@ module.exports = {
     __filename: false
   },
   externals: {
-    'node-vlc': 'commonjs node-vlc',
     'fluent-ffmpeg': 'commonjs fluent-ffmpeg',
     'koffi': 'commonjs koffi'
   }
