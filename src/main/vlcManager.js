@@ -1,4 +1,11 @@
-const vlc = require('node-vlc');
+let vlc;
+try {
+  vlc = require('node-vlc');
+} catch (error) {
+  console.warn('node-vlc module not found. VLC functionality will be disabled.');
+  console.warn('To enable VLC features, install node-vlc: npm install node-vlc');
+}
+
 const { EventEmitter } = require('events');
 const path = require('path');
 
@@ -15,6 +22,12 @@ class VLCManager extends EventEmitter {
   }
 
   initialize() {
+    if (!vlc) {
+      console.warn('VLC module not available - VLC features disabled');
+      this.emit('error', new Error('VLC module not available'));
+      return;
+    }
+
     try {
       // Create VLC instance
       this.instance = new vlc();
