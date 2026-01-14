@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenFrame - Professional Media Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #252525;
+            border-right: 1px solid #404040;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #404040;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .logo span {
+            color: #ff6b35;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-item:hover {
+            background: #333;
+            border-left-color: #00d4ff;
+        }
+
+        .nav-item.active {
+            background: #2a2a2a;
+            border-left-color: #ff6b35;
+            color: #00d4ff;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            height: 60px;
+            background: #2a2a2a;
+            border-bottom: 1px solid #404040;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #00a8cc;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #404040;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #555;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .player-container {
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .video-area {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .controls-container {
+            background: #2a2a2a;
+            padding: 15px;
+            border-top: 1px solid #404040;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #00d4ff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #404040;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #00d4ff;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            font-size: 12px;
+            color: #888;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: #404040;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .volume-fill {
+            height: 100%;
+            background: #00d4ff;
+            border-radius: 2px;
+            width: 70%;
+        }
+
+        .media-info {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #404040;
+        }
+
+        .info-label {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #888;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #404040;
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="app-container">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">Open<span>Frame</span></div>
+                    <div class="tagline">Professional Media Suite</div>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-item active" data-view="player">
+                        <div class="nav-icon">▶</div>
+                        <div>Player</div>
+                    </div>
+                    <div class="nav-item" data-view="library">
+                        <div class="nav-icon">📁</div>
+                        <div>Media Library</div>
+                    </div>
+                    <div class="nav-item" data-view="converter">
+                        <div class="nav-icon">⚡</div>
+                        <div>Converter</div>
+                    </div>
+                    <div class="nav-item" data-view="recorder">
+                        <div class="nav-icon">🎥</div>
+                        <div>Recorder</div>
+                    </div>
+                    <div class="nav-item" data-view="playlist">
+                        <div class="nav-icon">📋</div>
+                        <div>Playlists</div>
+                    </div>
+                    <div class="nav-item" data-view="settings">
+                        <div class="nav-icon">⚙</div>
+                        <div>Settings</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="header">
+                    <div class="header-title" id="headerTitle">Media Player</div>
+                    <div class="header-controls">
+                        <button class="btn btn-secondary" id="openFileBtn">Open File</button>
+                        <button class="btn btn-secondary" id="openFolderBtn">Open Folder</button>
+                        <button class="btn" id="fullscreenBtn">Fullscreen</button>
+                    </div>
+                </div>
+                
+                <div class="content-area" id="contentArea">
+                    <!-- Player View -->
+                    <div id="playerView" class="view">
+                        <div class="player-container">
+                            <div class="video-area" id="videoArea">
+                                <div class="loading" id="loadingIndicator">
+                                    <div class="spinner"></div>
+                                    <span>Loading media...</span>
+                                </div>
+                                <div id="dropZone" class="hidden">
+                                    Drop media files here to play
+                                </div>
+                            </div>
+                            <div class="controls-container">
+                                <div class="controls-row">
+                                    <button class="play-btn" id="playBtn">▶</button>
+                                    <div class="progress-bar" id="progressBar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                    <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="volume-control">
+                                        <span>🔊</span>
+                                        <div class="volume-slider" id="volumeSlider">
+                                            <div class="volume-fill" id="volumeFill"></div>
+                                        </div>
+                                        <span id="volumeDisplay">70%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="media-info" id="mediaInfo">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Title:</span>
+                                    <span class="info-value" id="infoTitle">No media loaded</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Duration:</span>
+                                    <span class="info-value" id="infoDuration">--:--</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Format:</span>
+                                    <span class="info-value" id="infoFormat">--</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Size:</span>
+                                    <span class="info-value" id="infoSize">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Other views will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="renderer.js"></script>
+</body>
+</html>
