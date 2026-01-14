@@ -106,8 +106,7 @@
       "allowElevation": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "OpenFrame",
-      "include": "build/installer.nsh"
+      "shortcutName": "OpenFrame"
     },
     "msi": {
       "oneClick": false,
