@@ -39,8 +39,7 @@
     "electron-store": "^8.1.0",
     "electron-updater": "^6.0.0",
     "node-vlc": "^0.3.0",
-    "fluent-ffmpeg": "^2.1.2",
-    "node-ffmpeg": "^0.6.2"
+    "fluent-ffmpeg": "^2.1.2"
   },
   "devDependencies": {
     "electron-builder": "^24.6.0",
